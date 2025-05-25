@@ -42,9 +42,10 @@ try:
     #     add_member(cursor, first_name, last_name, maiden_name, birth_date)
     # cursor.commit()
 
-    # set_father(cursor, 'Giorno', 'Giovanna', 'Dio', 'Brando')
+    set_father(cursor, 'Giorno', 'Giovanna', 'Dio', 'Brando')
     set_mother(cursor, 'Giorno', 'Giovanna', "Giorno's Mother", '')
     set_father(cursor, 'Dio', 'Brando', 'Dario', 'Brando')
+    set_mother(cursor, 'Dio', 'Brando', "Dio's Mother", 'Brando')
     cursor.commit()
 
     cursor.execute("SELECT * FROM Members")

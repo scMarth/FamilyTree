@@ -10,4 +10,3 @@ CREATE TABLE Members (
     MOTHER INT NULL,
     FATHER INT NULL
 );
-

@@ -1,0 +1,7 @@
+Install NodeJS: https://nodejs.org/en/download
+
+cd app
+npm init -y
+npm install express axios mssql
+
+

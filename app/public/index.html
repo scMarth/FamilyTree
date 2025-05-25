@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Family Tree</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="main.js" defer></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      /* overflow: hidden; */
+    }
+
+    svg {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .link {
+      stroke: #aaa;
+    }
+
+    .node circle {
+      fill: rgb(186, 224, 255);
+    }
+
+    .node text {
+      font-size: 12px;
+      fill: #333;
+      text-anchor: middle;
+    }
+  </style>
+</head>
+<body>
+  <svg></svg>
+</body>
+</html>
