@@ -1,13 +1,9 @@
 import data
+import immediate_family
 
-mother = ('Rick Owen Mom', 'Owen', 'Before', '1920-08-08')
-
-father = ('Rick Owen Dad', 'Owen', '', '1920-08-08')
-
-children = [
-    ('Rick', 'Owen', '', '1920-08-08'),
-    ('Timmy', 'Owen', '', '1920-08-08')
-]
+mother = immediate_family.mother
+father = immediate_family.father
+children = immediate_family.children
 
 # add the members
 members = [mother] + [father] + children
