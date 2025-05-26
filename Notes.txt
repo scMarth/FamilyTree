@@ -59,6 +59,8 @@ hosting:
 
     Enable Proxy in ARR:
 
+        turn windows features on or off > inable iis
+
         Open IIS Manager
 
         Go to the server node (top-level)
@@ -94,3 +96,56 @@ hosting:
 connecting to db from other pc:
 
 192.xxx.x.xx/SQLEXPRESS
+
+first ping ipv4 address of server pc:
+
+ping 192.xxx.x.xx
+
+if it doesn't work, do ipconfig on both machines:
+If both IPs start with 192.168.1. and have the same subnet, you’re good.
+
+
+Allow ICMP (Ping) on the Host (PC)
+    Windows Firewall blocks ping by default. You need to allow it.
+
+    On your PC (the one you're trying to ping):
+    Open Windows Defender Firewall with Advanced Security
+
+    Go to Inbound Rules
+
+    Scroll down and look for:
+
+    File and Printer Sharing (Echo Request - ICMPv4-In)
+
+    There are a few entries (Private, Public, Domain).
+
+    Enable the one that matches your network type (probably Private, Public remote address: local subnet)
+
+    Right-click > Enable Rule
+
+    Now try pinging again from your laptop
+
+
+    make sure in tcp/ip settings:
+
+        Open SQL Server Configuration Manager
+
+        Navigate to:
+        SQL Server Network Configuration → Protocols for SQLEXPRESS
+
+        Double-click TCP/IP
+
+        Go to the IP Addresses tab
+
+            find IP4 should have the IP address
+
+            set enabled = Yes
+
+            make sure dynamic ports in IPAll is blank and TCP port is 1433
+
+            set IPxx with IP Address matching below to enabled = yes
+            ::1
+            127.0.0.1
+            192.xxx.x.xx
+
+    test connection via connecting to server: 192.xxx.x.xx,1433 in SSMS on client machine
