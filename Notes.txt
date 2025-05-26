@@ -38,3 +38,53 @@ npm init -y
 npm install express axios mssql
 
 note: restart computer after these installations
+
+
+
+run with:
+    cd app/server
+    node server.js
+
+    which will run app on http://localhost:3000
+
+hosting:
+    Install URL Rewrite:
+        https://www.iis.net/downloads/microsoft/url-rewrite
+            (English x64)
+
+    Install ARR (Application Request Routing):
+        https://www.iis.net/downloads/microsoft/application-request-routing
+
+            x64
+
+    Enable Proxy in ARR:
+
+        Open IIS Manager
+
+        Go to the server node (top-level)
+
+        Open Application Request Routing Cache
+
+        On the right side, click "Server Proxy Settings"
+
+        Check "Enable proxy", then click Apply
+
+    Create a Reverse Proxy Rule:
+    https://www.youtube.com/watch?v=oIRjkPucQ9k
+
+        in C:\inetpub\wwwroot: create a folder called "FamilyTree"
+
+        In IIS, click on this new site, then URL Rewrite > Add Rule(s) > Reverse Proxy > add inbound rule "localhost:3000" > ok
+
+            in: C:\inetpub\wwwroot\FamilyTree\web.config
+
+            it should look like this:
+
+        <rewrite>
+            <rules>
+                <rule name="ReverseProxyToNode" stopProcessing="true">
+                <match url="(.*)" />
+                <action type="Rewrite" url="http://localhost:3000/FamilyTree/{R:1}" />
+                </rule>
+            </rules>
+        </rewrite>

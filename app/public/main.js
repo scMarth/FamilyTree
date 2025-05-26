@@ -1,5 +1,5 @@
 // database query
-fetch('/api/members')
+fetch('/FamilyTree/api/members')
   .then(res => res.json())
   .then(member_data => {
 

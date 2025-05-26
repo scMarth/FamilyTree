@@ -34,7 +34,7 @@ async function getMembers(){
   }
 }
 
-app.get('/api/members', async (req, res) => {
+app.get('/FamilyTree/api/members', async (req, res) => {
   try {
     const members = await getMembers();
     res.json(members);
@@ -44,10 +44,12 @@ app.get('/api/members', async (req, res) => {
 });
 
 // Serve static files from public folder
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// app.use(express.static(path.join(__dirname, '../public'))); //local
+
+app.use('/FamilyTree', express.static(path.join(__dirname, '../public')));
 
 // Start server
 app.listen(port, () => {
-  console.log(`Backend server running at http://localhost:${port}`);
+  console.log(`Backend server running at http://localhost:${port}/FamilyTree`);
 });
 
