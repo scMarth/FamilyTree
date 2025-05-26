@@ -88,3 +88,9 @@ hosting:
                 </rule>
             </rules>
         </rewrite>
+
+
+
+connecting to db from other pc:
+
+192.xxx.x.xx/SQLEXPRESS

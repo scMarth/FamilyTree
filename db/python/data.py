@@ -2,7 +2,7 @@ import pyodbc, os
 
 username = os.environ['LOCAL_SQLEXPRESS_USER']
 password = os.environ['LOCAL_SQLEXPRESS_PW']
-sql_server = os.environ['LOCAL_SQLEXPRESS_SERVER']
+sql_server = os.environ['LOCAL_SQLEXPRESS_SERVER'] # note, can be on another computer e.g. "192.xxx.x.xx\SQLEXPRESS"
 
 # Define connection string
 conn_str = (
