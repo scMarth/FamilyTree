@@ -1,7 +1,40 @@
+Instal SQL Server 2022 Express: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+    basic installation > install SSMS > 'download SSMS 21' > run SSMS installer > leave all default > install
+        note what the Sql instance name is SQLEXPRESS or SQLEXPRESS01
+
+    connect to server > server type: database engine > server name: localhost\SQLEXPRESS01
+        use Windows Authentication at first
+        check trust certificate
+        right-click the connection > properties > security > change server authentication to SQL Server and Windows Authentication mode
+        restart SQL server
+    
+    create new user:
+
+        security > right-click logins > new login > select 'sql server authentication' > type login name e.g. 'admin' > uncheck password expiration > ok
+
+    create new db:
+
+    right-click databases > new database > type database name > ok
+
+        grant created user permission to db:
+
+            right-click user under security > logins > user mapping > select database > select db_owner to grant full control for database
+
+            click refresh on database > right-click the newly created database e.g. Test > permissions
+
+        Enable TCP/IP:
+
+            By default, SQL Server Express instances do not have TCP/IP enabled, which is required for remote or programmatic connections (like from Node.js).
+
+            start > search "configuration manager" > click SQL Server 2022 Configuration Manager > SQL Server Network Configuration > Protocols for SQLEXPRESS01 > enable TCP/IP > right-click TCP/IP > IP addresses tab > scroll down to IPAll > set TCP Port '1433' > save and restart the server in SQL Server Management Studio
+
+        Turn on SQL Server Browser in services.msc
+            start up type Automatic (Delayed Start) > start
+
 Install NodeJS: https://nodejs.org/en/download
 
 cd app
 npm init -y
 npm install express axios mssql
 
-
+note: restart computer after these installations

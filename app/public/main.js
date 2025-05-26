@@ -2,7 +2,6 @@
 fetch('/api/members')
   .then(res => res.json())
   .then(member_data => {
-    console.log('member_data:', member_data);
 
     // Create a map from OBJECTID to NAME (to reference parents by ID)
     const idToName = {};
@@ -14,8 +13,6 @@ fetch('/api/members')
     const nodes = member_data.map(person => ({
         id: person.FIRST_NAME + ' ' + person.LAST_NAME
     }));
-
-    console.log('nodes:', nodes);
 
     // create links
     const links = [];
@@ -34,10 +31,19 @@ fetch('/api/members')
         }
     });
 
-    console.log('links', links);
-
     // Select the SVG
     const svg = d3.select('svg');
+    const g = svg.append("g");
+
+    // Enable zoom & pan
+    const zoom = d3.zoom()
+      .scaleExtent([0.1, 3]) // optional: min and max zoom scale
+      .on("zoom", (event) => {
+        g.attr("transform", event.transform); // apply zoom/pan to the group
+      });
+
+    svg.call(zoom);
+
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -48,19 +54,17 @@ fetch('/api/members')
     .force('center', d3.forceCenter(width / 2, height / 2));
 
     // Draw links (lines between nodes)
-    const link = svg.append('g')
-    .attr('stroke', '#aaa')
-    .selectAll('line')
-    .data(links)
-    .join('line')
-    .attr('class', 'link');
+    const link = g.selectAll('.link')
+      .data(links)
+      .join('line')
+      .attr('class', 'link')
+      .attr('stroke', '#aaa');
 
     // Draw nodes (circles + labels)
-    const node = svg.append('g')
-    .selectAll('g')
-    .data(nodes)
-    .join('g')
-    .attr('class', 'node');
+    const node = g.selectAll('.node')
+      .data(nodes)
+      .join('g')
+      .attr('class', 'node');
 
     node.append('circle')
     .attr('r', 20)
@@ -68,7 +72,8 @@ fetch('/api/members')
 
     node.append('text')
     .text(d => d.id)
-    .attr('dy', 4);
+    .attr('dy', 4)
+    .attr('text-anchor', 'middle');
 
     // Update positions on each tick
     simulation.on('tick', () => {
@@ -81,6 +86,4 @@ fetch('/api/members')
     node
         .attr('transform', d => `translate(${d.x},${d.y})`);
     });
-
-    console.log('end with d3?');
   });
