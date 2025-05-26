@@ -27,6 +27,32 @@ def commit_and_clean(cursor, conn):
     cursor.close()
     conn.close()
 
+def get_member_objectid(first_name, last_name, maiden_name, birth_date):
+    cursor, conn = get_connection()
+    cursor.execute("SELECT OBJECTID FROM Members WHERE (FIRST_NAME=?) AND (LAST_NAME=?) AND (MAIDEN_NAME=?) AND (BIRTH_DATE=?)", (first_name, last_name, maiden_name, birth_date))
+
+    rows = cursor.fetchall()
+
+    # Clean up
+    cursor.close()
+    conn.close()
+
+    if len(rows) == 1:
+        return rows[0][0]
+    else:
+        return None
+
+
+def set_mother_via_objectid(member_objectid, mother_objectid):
+    cursor, conn = get_connection()
+    cursor.execute("UPDATE Members SET MOTHER=? WHERE OBJECTID=?", (mother_objectid, member_objectid))
+    commit_and_clean(cursor, conn)
+
+def set_father_via_objectid(member_objectid, father_objectid):
+    cursor, conn = get_connection()
+    cursor.execute("UPDATE Members SET FATHER=? WHERE OBJECTID=?", (father_objectid, member_objectid))
+    commit_and_clean(cursor, conn)
+
 def add_member(first_name, last_name, maiden_name, birth_date):
 
     # don't add the member if they already are in the table
@@ -63,3 +89,13 @@ def member_exists(first_name, last_name, birth_date):
     else:
         return False
 
+def get_all_member_data():
+    cursor, conn = get_connection()
+    cursor.execute("SELECT * FROM Members")
+    rows = cursor.fetchall()
+
+    # Clean up
+    cursor.close()
+    conn.close()
+
+    return rows

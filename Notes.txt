@@ -8,9 +8,16 @@ Instal SQL Server 2022 Express: https://www.microsoft.com/en-us/sql-server/sql-s
         right-click the connection > properties > security > change server authentication to SQL Server and Windows Authentication mode
         restart SQL server
     
+
+    right-click security folder > logins folder
+        the is a 'sa' login, by default it is disabled. right click it > properties > change the password > status > enable login > ok
+
     create new user:
 
         security > right-click logins > new login > select 'sql server authentication' > type login name e.g. 'admin' > uncheck password expiration > ok
+
+
+
 
     create new db:
 
