@@ -53,12 +53,26 @@ fetch('/FamilyTree/api/members')
     .force('charge', d3.forceManyBody().strength(-400))
     .force('center', d3.forceCenter(width / 2, height / 2));
 
+    svg.append("defs").append("marker")
+      .attr("id", "arrowhead")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 25) // adjust based on node radius
+      .attr("refY", 0)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 6)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,-5L10,0L0,5")
+      .attr("fill", "#aaa");
+
     // Draw links (lines between nodes)
     const link = g.selectAll('.link')
       .data(links)
       .join('line')
       .attr('class', 'link')
-      .attr('stroke', '#aaa');
+      .attr('stroke', '#aaa')
+      .attr("stroke-width", 2)
+      .attr("marker-end", "url(#arrowhead)"); // <- add this line
 
     // Draw nodes (circles + labels)
     const node = g.selectAll('.node')
