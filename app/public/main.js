@@ -75,6 +75,32 @@ fetch('/FamilyTree/api/members')
     .attr('dy', 4)
     .attr('text-anchor', 'middle');
 
+    node.append('title')
+    .text(d => {
+      const person = member_data.find(p => (p.FIRST_NAME + ' ' + p.LAST_NAME) === d.id);
+      const firstName = person.FIRST_NAME;
+      const lastName = person.LAST_NAME;
+      const maidenName = person.MAIDEN_NAME ? person.MAIDEN_NAME : '(none)';
+
+      const birthDate = new Date(person.BIRTH_DATE);
+
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      // const month = birthDate.getUTCMonth() + 1; // getMonth() is 0-based
+      const month = months[birthDate.getUTCMonth()];
+      const day = birthDate.getUTCDate();
+      const year = birthDate.getUTCFullYear();
+
+      const dateStr = `${month} ${day}, ${year}`;
+
+      const textStr = `first name: ${firstName}`
+        + `\nlast name: ${lastName}`
+        + `\nmaiden name: ${maidenName}`
+        + `\nbirth date: ${dateStr}`;
+      
+      return textStr;
+    });
+
     // Update positions on each tick
     simulation.on('tick', () => {
     link
